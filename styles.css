@@ -1,0 +1,833 @@
+:root{
+  --primary:#02293A;      /* fundo principal */
+  --accent:#21C9D6;       /* ciano botões */
+  --accent-2:#18BACE;     /* ciano hover */
+  --wash:#ffffff;         /* site inteiro com fundo da home */
+  --ink:#e8f6f8;          /* texto padrão mais claro p/ fundo escuro */
+  --container:min(92vw,1100px);
+  --radius:16px;
+  --shadow:0 12px 28px rgba(0,0,0,.18);
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/Satoshi-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,body{
+  margin:0;
+  background:var(--wash);
+  color:var(--ink);
+  /* fonte moderna (sans-serif) */
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased
+}
+
+/* Títulos em Inter também (sans-serif moderna) */
+h1,h2,h3{
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+  font-weight:800;
+  margin:.2em 0;
+  color:#f4feff;
+}
+
+a{color:inherit;text-decoration:none}
+.container{width:var(--container);margin:auto}
+
+/* Botão */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.9rem 1.2rem;border-radius:999px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  color:#003a3a;font-weight:800;
+  box-shadow:0 8px 22px rgba(33,201,214,.25);
+  transition:.25s
+}
+.btn:hover{transform:translateY(-2px);filter:saturate(1.1)}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:10;
+  background:#062334;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:40px;height:40px;border-radius:10px;object-fit:cover}
+.brand b{font:800 1rem 'Inter',system-ui;color:#cfeff3;letter-spacing:.2px}
+nav{display:flex;gap:18px}
+nav a{
+  padding:.6rem .4rem;border-radius:10px;
+  color:#b4dbe1;font-weight:600
+}
+nav a:hover{color:#fff;background:rgba(33,201,214,.12)}
+
+/* HERO */
+.hero{
+  --base:#02293A;
+  position: relative;
+  padding:0; overflow:hidden;
+  background:
+    radial-gradient(900px 450px at 20% 30%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(1100px 600px at 80% 70%, rgba(33,201,214,.10), transparent 55%),
+    linear-gradient(180deg, var(--base) 0%, #011f2f 100%);
+}
+.hero::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 2px 2px;
+  opacity:.6; mix-blend-mode: soft-light;
+}
+
+.hero .wrap{
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-columns:.95fr 1.05fr;
+  grid-template-areas:"card photo"; /* card à ESQ, foto à DIR */
+  gap:30px; align-items:center; min-height:72vh;
+}
+.hero-card{ grid-area: card; }
+.hero-left{ grid-area: photo; }
+
+@media (max-width:980px){
+  .hero .wrap{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "card"
+      "photo";
+    gap:18px; padding-top:28px;
+  }
+}
+
+/* Foto + halo + FADE inferior */
+.hero-left{
+  position: relative;
+  min-height: 420px;
+  display: grid; place-items: end center;
+  padding: 40px; overflow: hidden;
+}
+.hero-left::before{
+  content:""; position:absolute; inset:8% 10%;
+  background: radial-gradient(circle at 50% 45%,
+              rgba(255,255,255,.70) 0%,
+              rgba(255,255,255,.34) 38%,
+              rgba(255,255,255,0) 75%);
+  filter: blur(36px);
+  z-index: 0;
+}
+.hero-left::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height: 170px;
+  background: linear-gradient(to top, var(--primary) 0%, rgba(2,41,58,.95) 100%, rgba(2,41,58,0) 100%);
+  z-index: 2; pointer-events: none;
+}
+.hero-portrait{
+  width: clamp(260px, 36vw, 420px);
+  max-width: 100%;
+  object-fit: contain; object-position: center bottom;
+  filter: drop-shadow(0 16px 32px rgba(0,0,0,.35));
+  position: relative; z-index: 1; margin-bottom: -6px;
+}
+@media (max-width:980px){
+  .hero-left{ min-height: 360px; padding: 24px; }
+  .hero-left::after{ height: 200px; }
+}
+
+/* Card branco no hero */
+.hero-card{
+  background:#ffffff;border:1px solid rgba(255,255,255,.10);
+  border-radius:28px;box-shadow:var(--shadow);
+  padding:28px 24px;margin:40px 0;color:#12303a;
+}
+.hero-card h1{
+  font-size:clamp(26px,4.6vw,40px);
+  color:#062334; text-wrap:balance; margin:0 0 8px
+}
+.hero-card p{max-width:60ch;margin:8px 0 0;color:#2d5662}
+.badge{
+  display:inline-block;margin:2px 0 12px;padding:.35rem .7rem;border-radius:999px;
+  background:#dff7f7;color:#0a4f4f;font-weight:800;font-size:.82rem
+}
+
+/* Seções */
+section{padding:64px 0}
+section h2{font-size:clamp(20px,3vw,28px);text-align:center;color:#08384d}
+.sub{max-width:70ch;margin:8px auto 0;text-align:center;color:#4a6c78}
+
+/* Cards brancos nas seções */
+.panel, .card, .quote, .about-photo, .map{
+  background:#ffffff; color:#0f1b22;
+  border:1px solid #e6f1f2;border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.12)
+}
+
+/* Serviços */
+.services{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:22px}
+@media (max-width:1024px){.services{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.services{grid-template-columns:repeat(2,1fr)}}
+.card{padding:18px;text-align:center;transition:.25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.16)}
+.ico{width:36px;height:36px;color:var(--accent);margin:2px auto 8px;display:block}
+.card h3{font-size:1rem;margin:6px 0;color:#093746}
+.card p{margin:0;color:#5a7a83;font-size:.95rem}
+
+/* Abordagem */
+.approach{margin-top:18px;display:grid;grid-template-columns:1fr;gap:22px}
+.approach .panel{padding:22px}
+.steps{display:grid;gap:12px;margin-top:8px}
+.step{
+  display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;
+  padding:12px;border:1px dashed #d8ebee;border-radius:12px;background:#fbffff
+}
+.step .dot{
+  width:26px;height:26px;display:grid;place-items:center;border-radius:8px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#003a3a;font-weight:900
+}
+.step b{display:block;color:#0d3442}
+
+/* Quem sou eu */
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin-top:14px}
+@media (max-width:900px){.about{grid-template-columns:1fr}}
+.about .panel{padding:22px}
+.kpis{display:flex;gap:22px;flex-wrap:wrap;margin-top:10px}
+.kpi b{display:block;font-size:1.6rem;color:var(--primary)}
+.kpi span{color:#5a7a83}
+.about-photo{display:grid;place-items:center;overflow:hidden}
+.about-photo img{width:100%;height:100%;max-height:380px;object-fit:cover}
+
+/* Localização */
+.loc{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+@media (max-width:900px){.loc{grid-template-columns:1fr}}
+.map{min-height:260px;overflow:hidden}
+.map iframe{width:100%;height:100%;border:0}
+
+/* Depoimentos */
+.testi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+@media (max-width:900px){.testi{grid-template-columns:1fr}}
+.quote{padding:18px}
+.stars{color:#f2b705;letter-spacing:2px;margin-bottom:6px}
+
+/* ====== ANTES & DEPOIS — Fade automático + carrossel ====== */
+:root{
+  --ba-aspect: 4 / 5;
+  --ba-radius: 18px;
+  --ba-duration-fade: 2800ms;
+  --ba-duration-hold: 900ms;
+}
+.ba-carousel { margin-top: 16px; }
+.ba-viewport{
+  position: relative;
+  width: min(92vw, 500px);
+  margin: 0 auto;
+  aspect-ratio: var(--ba-aspect);
+  border-radius: var(--ba-radius);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 10px 26px rgba(0,0,0,.22);
+  background: #0a2a3a;
+}
+.ba-track{
+  height: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  transition: transform .6s ease;
+}
+.ba-slide{
+  position: relative;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.ba-pair{ position: relative; overflow: hidden; }
+.ba-pair img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit: cover;
+  transform: translateZ(0); will-change: opacity;
+}
+.ba-pair .before{ opacity: 1; }
+.ba-pair .after{  opacity: 0; }
+
+@keyframes baSwap {
+  0%   { opacity: 0; }
+  45%  { opacity: 1; }
+  55%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.ba-slide.active .ba-pair .after{
+  animation: baSwap calc(var(--ba-duration-fade) + var(--ba-duration-hold)) ease-in-out infinite;
+}
+
+/* legenda */
+.ba-caption{
+  margin: 10px auto 12px; padding: .4rem .8rem; border-radius: 999px;
+  font: 800 .92rem 'Inter', system-ui; color: #fff;
+  background: rgba(2,41,58,.92);
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  width: max-content;
+}
+
+/* dots */
+.ba-dots{ display:flex; gap:10px; justify-content:center; margin: 12px 0 0; }
+.ba-dots .dot{
+  width:10px; height:10px; border-radius:50%;
+  background:#7fbfcc; border:0; cursor:pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.ba-dots .dot:hover{ transform: scale(1.15); }
+.ba-dots .dot.active{ background:#21C9D6; }
+
+/* pausa ao passar mouse */
+.ba-carousel.paused .ba-slide.active .ba-pair .after{ animation-play-state: paused; }
+
+@media (max-width: 640px){
+  .ba-viewport{ width: 96vw; }
+}
+
+/* Footer + FAB */
+footer{background:#061c29;color:#cbeff0;text-align:center;padding:20px}
+.fab{position:fixed;right:18px;bottom:18px;z-index:20}
+
+/* ===== Serviços — Parallax + Hover com inversão ===== */
+#servicos { position: relative; }
+.services{
+  position: relative;
+  perspective: 800px;
+  will-change: transform;
+}
+.card{
+  position: relative;
+  z-index: 1;
+  transform: translateY(var(--ty, 0)) translateZ(0);
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    background-color .35s ease,
+    color .35s ease,
+    filter .35s ease,
+    border-color .35s ease;
+}
+.card .ico{ transition: color .35s ease, filter .35s ease; }
+.card:hover{
+  background: var(--primary);
+  color: #fff;
+  border-color: rgba(255,255,255,.14);
+  box-shadow: 0 18px 40px rgba(0,0,0,.22);
+  transform: translateY(calc(var(--ty, 0) - 8px)) scale(1.02);
+  z-index: 3;
+}
+.card:hover .ico{
+  color: #fff;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.25));
+}
+.services:hover .card:not(:hover){
+  filter: saturate(.9) brightness(.96);
+  transform: translateY(var(--ty, 0)) scale(.99);
+}
+.services[data-tilt="on"] .card{
+  transform:
+    translateY(var(--ty, 0))
+    rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg))
+    translateZ(0);
+}
+
+/* contraste dos cards de Serviços */
+.card h3{ color:#0d3340; }
+.card p { color:#395d68; }
+
+.card:hover,
+.card:hover h3,
+.card:hover p,
+.card:hover .ico{
+  color:#ffffff !important;
+}
+.card:hover h3,
+.card:hover p{
+  text-shadow:0 1px 0 rgba(0,0,0,.18);
+  opacity:1;
+}
+/* ===== Texto sobreposto no hero ===== */
+.hero-overlay-text {
+  position: absolute;
+  bottom: 30px;        /* distância da base */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+font-family: "Cormorant Garamond", serif;  font-weight: 500;
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: rgba(255, 255, 255, 0.85);  /* branco suave */
+  letter-spacing: 0.5px;
+  text-align: center;
+  mix-blend-mode: lighten;            /* se integra com o fundo */
+  pointer-events: none;               /* não interfere com cliques */
+}
+/* Overlay minimalista no hero */
+.hero-id{
+  position:absolute;
+  left:35x;                   /* canto inferior direito */
+  bottom:26px;
+  z-index:5;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight:600;
+  font-size:clamp(12px, 1.1vw, 14px);
+  letter-spacing:.12em;         /* ar minimalista */
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);  /* branco suave */
+  padding:.55rem .9rem;
+  border:1px solid rgba(255,255,255,.18); /* hairline */
+  border-radius:999px;
+  backdrop-filter: blur(4px);   /* gelo sutil */
+  background:rgba(2,41,58,.22); /* leve vidro, combina com hero */
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  pointer-events:none;          /* não bloqueia cliques */
+}
+
+/* Se quiser ainda mais discreto, use esta variação: */
+/*
+.hero-id{
+  border:none;
+  background:transparent;
+  box-shadow:none;
+  color:rgba(255,255,255,.66);
+}
+*/
+.hero-left {
+  position: relative;
+  overflow: hidden;
+}
+
+/* marca d’água da clínica */
+.hero-watermark {
+  position: absolute;
+  right: 5%;                    /* ajuste horizontal */
+  top: 10%;                     /* ajuste vertical */
+  width: clamp(200px, 22vw, 400px);
+  aspect-ratio: 1 / 1;          /* troque se sua logo for retangular */
+  opacity: 0.08;                /* transparência */
+  pointer-events: none;
+
+  -webkit-mask: url("img/logo-clinica.svg") no-repeat center / contain;
+          mask: url("img/logo-clinica.svg") no-repeat center / contain;
+  background-color: #fff;       /* deixa a logo branca */
+  filter: blur(0.4px);
+  z-index: 0;                   /* garante que fique atrás da foto */
+}
+
+/* fallback se o navegador não suportar máscara */
+@supports not (-webkit-mask: url("")) {
+  .hero-watermark {
+    background: url("img/logo-clinica.svg") no-repeat center / contain;
+    opacity: 0.06;
+    filter: blur(0.5px);
+  }
+}
+/* garante contexto e corte interno */
+.hero-left{
+  position: relative;
+  overflow: hidden;    /* mantém tudo dentro do bloco da foto */
+}
+
+/* halo que você já usa (se existir) continua como ::before */
+
+/* ✅ LOGO em SVG como marca d’água, sem mexer no layout */
+.hero-left::after{
+  content:"";
+  position:absolute;
+  /* posicione aqui (direita/alto) */
+  right: min(5vw, 48px);
+  top: min(8vh, 80px);
+
+  /* tamanho controlado por variável */
+  width: min(22vw, 340px);
+  aspect-ratio: 1 / 1;           /* ajuste se sua logo não for quadrada */
+  pointer-events: none;
+  opacity: .08;                   /* transparência da marca d’água */
+  z-index: 0;                     /* fica atrás da foto */
+
+  /* pinta de branco usando mask com o seu SVG */
+  background-color: #fff;
+  -webkit-mask: url("logo-clinica2.svg") no-repeat center / contain;
+          mask: url("logo-clinica2.svg") no-repeat center / contain;
+
+  /* leve suavização para não “brigar” com o fundo */
+  filter: blur(.4px);
+}
+
+/* garante a foto acima da marca d’água */
+.hero-portrait{ position: relative; z-index: 1; }
+.hero-id{ position: relative; z-index: 2; } /* se estiver usando a plaqueta com CRM */
+/* ... suas variáveis e resets exatamente como já estavam ... */
+
+/* HERO (mantém o fade no ::after) */
+.hero-left{
+  position: relative;
+  min-height: 420px;
+  display: grid; place-items: end center;
+  padding: 40px; 
+  overflow: hidden;
+}
+.hero-left::before{
+  content:""; position:absolute; inset:8% 10%;
+  background: radial-gradient(circle at 50% 45%,
+              rgba(255,255,255,.70) 0%,
+              rgba(255,255,255,.34) 38%,
+              rgba(255,255,255,0) 75%);
+  filter: blur(36px);
+  z-index: 0;
+}
+/* ⬇️ FICA o fade no ::after (não use ::after para a logo) */
+.hero-left::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height: 170px;
+  background: linear-gradient(to top, var(--primary) 50%, rgba(2,41,58,.85) 200%, rgba(2,41,58,0) 100%);
+  z-index: 2; pointer-events: none;
+}
+.hero-portrait{ position: relative; z-index: 1; width: clamp(260px, 36vw, 420px); max-width:100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 500px 32px rgba(0,0,0,.35)); margin-bottom:-6px; }
+.hero-id{ position:absolute; right:24px; bottom:26px; z-index:3; font:600 clamp(12px,1.1vw,14px)/1 Inter, system-ui; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.78); padding:.55rem .9rem; border:1px solid rgba(255,255,255,.18); border-radius:999px; backdrop-filter: blur(4px); background:rgba(2,41,58,.22); box-shadow:0 6px 18px rgba(0,0,0,.18); pointer-events:none; }
+
+/* ✅ MARCA-D’ÁGUA por SPAN (não conflita com o fade) */
+.hero-watermark{
+  position:absolute;
+  right: min(7vw, 25px);
+  top: min(4vh, 80px);
+  width: min(22vw, 340px);
+  aspect-ratio: 1/1;         /* ajuste se a logo for horizontal */
+  opacity: .08;
+  pointer-events: none;
+  z-index: 0;                 /* fica atrás da foto */
+  background-color:#fff;
+  -webkit-mask: url("logo-clinica.svg") no-repeat center / contain;
+          mask: url("logo-clinica.svg") no-repeat center / contain;
+  filter: blur(.4px);
+}
+@supports not (-webkit-mask: url("")) {
+  .hero-watermark{
+    background: url("logo-clinica.svg") no-repeat center / contain;
+    opacity: .06;
+    filter: blur(.5px);
+  }
+}
+
+/* RESPONSIVO */
+@media (max-width:980px){
+  .hero-left{ min-height:360px; padding:24px; }
+  .hero-left::after{ height:200px; }
+  .hero-id{ right:16px; bottom:18px; }
+}
+
+/* --- o restante do seu CSS permanece igual --- */
+@media (max-width: 640px){
+  .hero-watermark{
+    width: clamp(220px, 55vw, 380px); /* antes 28vw */
+  }
+}
+@media (max-width: 640px){
+  .hero-watermark{
+    top: min(1vh, 60px); /* antes era 8vh, 80px — agora sobe */
+  }
+}
+/* ====== Fade-in ao rolar ====== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.step.fade-in:nth-child(1){ transition-delay: .1s; }
+.step.fade-in:nth-child(2){ transition-delay: .25s; }
+.step.fade-in:nth-child(3){ transition-delay: .4s; }
+.step.fade-in:nth-child(4){ transition-delay: .55s; }
+/* Justifica os textos das etapas da seção "Sua Jornada de Transformação Capilar" */
+.step span {
+  display: block;
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.6;
+}
+h1, h2, h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #f4feff;
+  line-height: 1.1;
+}
+h1::first-letter, h2::first-letter, h3::first-letter {
+  font-size: 1.05em;
+  letter-spacing: 1px;
+}
+html, body {
+  font-family: 'Satoshi', system-ui, sans-serif;
+}
+h1, h2, h3 {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  line-height: 1.2;
+}
+/* ===== Botões minimalistas ===== */
+.actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+.btn-min{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.7rem 1rem; border-radius:999px;
+  border:1px solid rgba(2,41,58,.18);
+  background:#fff; color:#0d3340; font-weight:600;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn-min:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,.10); }
+.btn-min--ghost{
+  background:transparent; color:#0d3340;
+  border-color:rgba(2,41,58,.22);
+}
+.btn-min--ghost:hover{
+  background:rgba(33,201,214,.06);
+  border-color:rgba(33,201,214,.28);
+}
+.w100{width:100%}
+
+/* ===== Modal básico ===== */
+.modal[hidden]{display:none}
+.modal{
+  position:fixed; inset:0; z-index:50; display:grid; place-items:center;
+}
+.modal__backdrop{
+  position:absolute; inset:0; background:rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+}
+.modal__card{
+  position:relative; z-index:1; width:min(92vw,540px);
+  background:#ffffff; color:#0f1b22; border-radius:18px;
+  border:1px solid #e6f1f2; box-shadow:0 20px 50px rgba(0,0,0,.28);
+  padding:18px;
+}
+.modal__head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+.modal__close{
+  background:transparent; border:0; font-size:24px; line-height:1; cursor:pointer; color:#093746;
+}
+
+/* Tabs */
+.tabs{display:flex; gap:8px; margin:6px 0 10px}
+.tab{
+  flex:1; padding:.55rem .8rem; border-radius:999px; border:1px solid #d9e9ec;
+  background:#f7fdfe; color:#0d3340; font-weight:700; cursor:pointer;
+  transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+.tab.is-active{
+  background: linear-gradient(180deg,var(--accent),var(--accent-2));
+  color:#003a3a; border-color:transparent;
+  box-shadow:0 8px 18px rgba(33,201,214,.25);
+}
+
+/* Conteúdo das tabs */
+.tabpanels{margin-top:8px}
+.tabpanel{display:none}
+.tabpanel.is-active{display:block}
+.tp-sub{margin:6px 0 10px; color:#395d68}
+.tp-actions{display:grid; gap:10px}
+
+/* Responsivo */
+@media (max-width:640px){
+  .modal__card{width:min(96vw,520px)}
+}
+/* ===== Botões com ícones minimalistas em ciano ===== */
+.actions {display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;justify-content:center}
+
+.btn-min{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.7rem 1.1rem;border-radius:999px;
+  border:1px solid var(--accent);
+  background:transparent;color:var(--accent);
+  font-weight:600;transition:.25s ease;
+}
+.btn-min .ico{
+  width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;
+}
+
+.btn-min:hover{
+  background:var(--accent);
+  color:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(33,201,214,.25);
+}
+
+/* variações específicas (p/ futuro se quiser outras cores) */
+.btn-wa{color:var(--accent)}
+.btn-ig{color:var(--accent)}
+/* 1) Centralizar a seção de Localização e dar respiro */
+#localizacao .loc{
+  gap: 28px;                            /* mais espaço entre painel e mapa */
+  align-items: center;
+  justify-items: center;                /* centraliza os filhos na grid */
+}
+#localizacao .panel{
+  width: 100%;
+  max-width: 640px;                     /* caixa mais “contida” e centrada */
+  margin: 0 auto;
+}
+#localizacao .map{
+  width: 100%;
+  max-width: 640px;
+  border-radius: 16px;
+  overflow: hidden;                     /* arredonda o iframe também */
+}
+
+@media (max-width: 900px){
+  #localizacao .loc{
+    grid-template-columns: 1fr;         /* empilha */
+    gap: 22px;                          /* respiro entre botões e mapa no mobile */
+  }
+  #localizacao .panel, 
+  #localizacao .map{
+    max-width: min(96vw, 680px);
+  }
+  #localizacao .actions{ margin-top: 14px; }
+}
+
+/* 2) Botões de ação com respiro do mapa */
+#localizacao .actions{
+  display:flex; gap:10px; flex-wrap:wrap; 
+  justify-content:center; 
+  margin-top:12px; margin-bottom:8px;   /* separa dos elementos abaixo */
+}
+
+/* 3) Modal: impedir “vazar” dos botões e alinhar tudo */
+.modal__card{
+  padding: 20px 16px;
+  overflow: hidden;                     /* nada passa do raio do cartão */
+}
+.tabs{ margin: 6px 0 14px; padding: 0 6px; }
+.tabpanels{ padding: 0 6px 6px; }
+.tp-actions{ display:grid; gap:12px; }
+
+/* Botões do modal ocupam a largura do cartão, sem estourar */
+.tabpanel .btn-min{ 
+  width: 100%;                          /* evita overflow horizontal */
+  box-sizing: border-box;
+}
+
+/* (já com seus ícones ciano e hover invertendo as cores) */
+.btn-min{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.7rem 1.1rem;border-radius:999px;
+  border:1px solid var(--accent);
+  background:transparent;color:var(--accent);
+  font-weight:600;transition:.25s ease;
+}
+.btn-min .ico{ width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2; }
+.btn-min:hover{
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  color:#003a3a;                        /* contraste com o gradiente */
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(33,201,214,.25);
+}
+/* ===== Correção de centralização da seção de localização ===== */
+#localizacao {
+  text-align: center; /* centraliza o título "Localização" */
+}
+
+#localizacao .loc {
+  display: flex;                   /* substitui o grid só aqui */
+  flex-direction: column;          /* empilha os elementos verticalmente */
+  align-items: center;             /* centraliza horizontalmente */
+  justify-content: center;
+  gap: 28px;                       /* espaçamento entre card e mapa */
+  margin-top: 20px;
+}
+
+#localizacao .panel,
+#localizacao .map {
+  width: 100%;
+  max-width: 640px;                /* mantém o card compacto */
+  margin: 0 auto;                  /* força centralização no container */
+}
+
+#localizacao .panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#localizacao .actions {
+  justify-content: center;         /* centraliza os botões */
+  margin-top: 16px;
+}
+
+/* Responsivo — mantém tudo centralizado também no mobile */
+@media (max-width: 900px) {
+  #localizacao .loc {
+    flex-direction: column;
+    gap: 22px;
+  }
+}
+/* evita quebra de linha no nome da marca */
+.brand b{ white-space:nowrap; }
+
+/* botão do menu: escondido no desktop */
+.nav-toggle{
+  display:none; align-items:center; justify-content:center;
+  width:42px; height:42px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background:transparent; color:var(--accent);
+  transition:.2s;
+}
+.nav-toggle .close{ display:none; }
+.nav-toggle:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+/* comportamento no mobile */
+@media (max-width: 900px){
+  .navbar{ position:relative; }
+
+  /* mostra o botão */
+  .nav-toggle{ display:inline-flex; }
+
+  /* nav recolhido por padrão */
+  header nav{
+    position:absolute; top:100%; right:0; left:0;
+    display:none; flex-direction:column; gap:6px;
+    padding:10px 12px 14px;
+    background:#062334; border-top:1px solid rgba(255,255,255,.08);
+    box-shadow:0 12px 28px rgba(0,0,0,.22);
+    z-index:10;
+  }
+  header nav.open{ display:flex; }
+
+  header nav a{
+    padding:12px 10px;
+    border-radius:12px;
+    color:#cfeff3; font-weight:600;
+  }
+  header nav a:hover{
+    color:#fff; background:rgba(33,201,214,.12);
+  }
+
+  /* alterna ícones hambúrguer/fechar */
+  .nav-toggle[aria-expanded="true"] .hamb{ display:none; }
+  .nav-toggle[aria-expanded="true"] .close{ display:block; }
+}
+/* rolagem suave geral */
+html { scroll-behavior: smooth; }
+
+/* altura do header (ajuste se seu header for mais alto) */
+:root { --header-h: 64px; }
+@media (max-width:900px){
+  :root { --header-h: 78px; } /* mobile costuma ficar um pouco maior */
+}
+
+/* toda seção que tem id vira alvo de âncora com offset do header */
+section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+@media (max-width: 640px) {
+  .hero-id {
+    font-size: 12px; /* ou ajuste conforme o espaço disponível */
+    letter-spacing: 0.08em; /* mantém legibilidade */
+    padding: 0.45rem 0.75rem; /* proporcional à fonte menor */
+  }
+}
