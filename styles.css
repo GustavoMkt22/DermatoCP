@@ -826,8 +826,9 @@ html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 @media (max-width: 640px) {
   .hero-id {
-    font-size: 12px; /* ou ajuste conforme o espaço disponível */
+  font-size: clamp(10px, 2.9vw, 12px);
     letter-spacing: 0.08em; /* mantém legibilidade */
     padding: 0.45rem 0.75rem; /* proporcional à fonte menor */
   }
+
 }
