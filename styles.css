@@ -832,3 +832,17 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   }
 
 }
+/* Plaqueta (nome + CRM/RQE) — evitar quebra no mobile */
+@media (max-width: 640px){
+  .hero-id{
+    white-space: nowrap;        /* impede quebra automática */
+    word-break: keep-all;       /* mantém o texto unido */
+    hyphens: none;
+    font-size: 12px;            /* reduz levemente a fonte */
+    letter-spacing: .08em;
+    padding: .45rem .75rem;     /* ajusta o espaçamento */
+    max-width: calc(100vw - 32px); /* evita estouro lateral */
+    overflow: hidden;
+    text-overflow: clip;        /* ou use 'ellipsis' se quiser "..." */
+  }
+}
