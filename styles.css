@@ -838,7 +838,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
     white-space: nowrap;        /* impede quebra automática */
     word-break: keep-all;       /* mantém o texto unido */
     hyphens: none;
-    font-size: 12px;            /* reduz levemente a fonte */
+    font-size: clamp(10px, 2.9vw, 12px);            /* reduz levemente a fonte */
     letter-spacing: .08em;
     padding: .45rem .75rem;     /* ajusta o espaçamento */
     max-width: calc(100vw - 32px); /* evita estouro lateral */
@@ -846,3 +846,4 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
     text-overflow: clip;        /* ou use 'ellipsis' se quiser "..." */
   }
 }
+
